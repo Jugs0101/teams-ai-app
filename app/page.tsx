@@ -58,41 +58,54 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-gray-100 flex items-center justify-center p-8">
-      <div className="w-full max-w-3xl bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2">
-          Intellek Teams AI LMS Assistant
-        </h1>
+  <main className="min-h-screen bg-gray-100 flex items-center justify-center p-8 text-gray-900">
+    <div className="w-full max-w-3xl bg-white rounded-2xl shadow-lg p-8">
 
-        <p className="text-gray-500 mb-6">
-          Ask a question and receive a response from your AI service.
-        </p>
+      <h1 className="text-3xl font-bold text-black mb-2">
+        Intellek Teams AI LMS Assistant
+      </h1>
 
-        <div className="space-y-4">
-          <textarea
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
-            placeholder="Ask me anything..."
-            className="w-full h-40 p-4 border rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+      <p className="text-gray-900 mb-6">
+        Ask a question and receive a response from your AI service.
+      </p>
 
-          <button
-            onClick={handleSubmit}
-            disabled={loading}
-            className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 disabled:bg-gray-400"
-          >
-            {loading ? "Thinking..." : "Submit"}
-          </button>
-        </div>
+      <div className="space-y-4">
+        <textarea
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Ask me anything..."
+          className="
+            w-full
+            h-40
+            p-4
+            border
+            rounded-xl
+            text-black
+            placeholder:text-gray-500
+            focus:outline-none
+            focus:ring-2
+            focus:ring-blue-500
+          "
+        />
 
-        <div className="bg-gray-50 border rounded-xl p-4 break-words">
-            {response.split("\n").map((line, idx) => (
-              <p key={idx} className="mb-2 whitespace-pre-wrap">
-                {renderResponse(line)}
-              </p>
-            ))}
-          </div>
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 disabled:bg-gray-400"
+        >
+          {loading ? "Thinking..." : "Submit"}
+        </button>
       </div>
-    </main>
-    );
+
+      <div className="bg-gray-50 border rounded-xl p-4 break-words text-black mt-6">
+        {response.split("\n").map((line, idx) => (
+          <p key={idx} className="mb-2 whitespace-pre-wrap">
+            {renderResponse(line)}
+          </p>
+        ))}
+      </div>
+
+    </div>
+  </main>
+);
 }
