@@ -15,9 +15,7 @@ export default function Home() {
     setResponse("");
 
     try {
-      // 
-      //const result = await fetch("https://jt-ai-api-fbf4gkckfsefctcm.ukwest-01.azurewebsites.net/api/AIQuery/lms", {
-        const result = await fetch("https://localhost:7292/api/AIQuery/lms", {
+      const result = await fetch("https://jt-ai-api-fbf4gkckfsefctcm.ukwest-01.azurewebsites.net/api/AIQuery/lms", {      
         method: "POST",
         headers: {
           "Content-Type": "application/json",
