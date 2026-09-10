@@ -1,31 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import DOMPurify from "dompurify";
 
 export default function Home() {
   const [question, setQuestion] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
-
-  function renderResponse(text: string) {
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
-
-  return text.split(urlRegex).map((part, index) => {
-    if (part.match(urlRegex)) {
-      return (
-        <a
-          key={index}
-          href={part}
-          target="_blank"
-          className="text-blue-500 hover:underline"
-        >
-          {part}
-        </a>
-      );
-    }
-    return <span key={index}>{part}</span>;
-  });
-}
 
   async function handleSubmit() {
     if (!question.trim()) return;
@@ -34,7 +15,9 @@ export default function Home() {
     setResponse("");
 
     try {
-      const result = await fetch("https://jt-ai-api-fbf4gkckfsefctcm.ukwest-01.azurewebsites.net/api/AIQuery/lms", {
+      // 
+      //const result = await fetch("https://jt-ai-api-fbf4gkckfsefctcm.ukwest-01.azurewebsites.net/api/AIQuery/lms", {
+        const result = await fetch("https://localhost:7292/api/AIQuery/lms", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -97,13 +80,10 @@ export default function Home() {
         </button>
       </div>
 
-      <div className="bg-gray-50 border rounded-xl p-4 break-words text-black mt-6">
-        {response.split("\n").map((line, idx) => (
-          <p key={idx} className="mb-2 whitespace-pre-wrap">
-            {renderResponse(line)}
-          </p>
-        ))}
-      </div>
+      <div
+        className="bg-gray-50 border rounded-xl p-4 break-words text-black mt-6 prose prose-sm max-w-none [&_a]:text-blue-500 [&_a]:hover:underline"
+        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(response) }}
+      />
 
     </div>
   </main>
