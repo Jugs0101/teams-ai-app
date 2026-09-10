@@ -1,12 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DOMPurify from "dompurify";
 
 export default function Home() {
   const [question, setQuestion] = useState("");
   const [response, setResponse] = useState("");
+  const [sanitizedResponse, setSanitizedResponse] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setSanitizedResponse(DOMPurify.sanitize(response));
+  }, [response]);
 
   async function handleSubmit() {
     if (!question.trim()) return;
@@ -80,7 +85,7 @@ export default function Home() {
 
       <div
         className="bg-gray-50 border rounded-xl p-4 break-words text-black mt-6 prose prose-sm max-w-none [&_a]:text-blue-500 [&_a]:hover:underline"
-        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(response) }}
+        dangerouslySetInnerHTML={{ __html: sanitizedResponse }}
       />
 
     </div>
